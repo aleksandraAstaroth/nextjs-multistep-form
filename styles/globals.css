@@ -1,41 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+.width-form {
+  width: 25rem;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.form-style {
+  @apply flex flex-col items-end gap-2;
 }
-
-* {
-  box-sizing: border-box;
+.input-wrapper {
+  @apply relative flex items-center;
 }
-
-img {
-  max-width: 100%;
-  height: auto;
+.input-field {
+  @apply px-2 py-0.5 border w-56;
+} 
+.error-field {
+  @apply  text-red-600 text-xs;
 }
-
-h1,
-h2,
-p,
-ul {
-  margin: 0;
+.button-wrapper {
+  @apply flex w-full self-center justify-around pt-5;
 }
-
-ul {
-  padding: 0;
-  list-style: none;
+.button-style {
+  @apply border border-black px-3 py-1 text-sm;
 }
-
-button {
-  padding: 0.5rem 1rem;
-  font-weight: bold;
+.label-padding {
+  @apply px-3;
 }
