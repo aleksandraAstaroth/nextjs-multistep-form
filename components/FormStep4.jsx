@@ -1,20 +1,17 @@
 
-const FormStep4 = ({ firstName, lastName, age, phone, email, seat, food, allergies, isFirstStep, isLastStep, back, next }) => {
-    const onSubmit = (e) => {
-        e.preventDefault()
-    }
+const FormStep4 = ({ firstName, lastName, age, phone, email, seat, food, allergies, isFirstStep,  back }) => {
+
+     let values = [firstName, lastName, age, phone, email, seat, food, allergies]
+     const labels = ["First Name", "Last Name", "Age", "Phone", "Email", "Seat", "Food", "Allergies"];
     return (
         <>
-            <div className="text-left">
-                <div id="firstName">First Name: {firstName}</div>
-                <div id="age">Last Name: {lastName}</div>
-                <div id="age">Age: {age}</div>
-                <div id="phone"> Phone: {phone}</div>
-                <div id="email">Email: {email}</div>
-                <div id="seat">Seat: {seat}</div>
-                <div id="food">Food: {food}</div>
-                <div id="allergies">Allergies: {allergies}</div>
-            </div>
+            <ul className="text-left">
+            {labels.map((label, index) => (
+                <li key={label}>
+                    {label}: {values[index]}
+                </li>
+                ))}
+            </ul>
             <div className="button-wrapper">
                 {!isFirstStep && <button id="back" type="button" className="button-style" onClick={() => back()}>Back</button>}
             </div>
