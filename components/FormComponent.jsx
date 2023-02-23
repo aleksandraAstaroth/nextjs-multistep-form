@@ -1,8 +1,18 @@
-import { useState } from "react";
-import FormStep1 from "./FormStep1";
-import FormStep2 from "./FormStep2";
-import FormStep3 from "./FormStep3";
-import FormStep4 from "./FormStep4";
+import { useState } from "react"
+import FormStep1 from "./FormStep1"
+import FormStep2 from "./FormStep2"
+import FormStep3 from "./FormStep3"
+import FormStep4 from "./FormStep4"
+import {
+  firstNameValidator,
+  ageValidator,
+  lastNameValidator,
+  phoneValidator,
+  emailValidator,
+  seatValidator,
+  foodValidator,
+  allergiesValidator,
+} from "../utils/form-validators"
 
 const INITIAL_DATA = {
   firstName: "",
@@ -17,61 +27,98 @@ const INITIAL_DATA = {
 
 const FormComponent = () => {
   const [formData, setFormData] = useState(INITIAL_DATA)
- const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({})
+  const [currentStep, setCurrentStep] = useState(0)
 
   const updateInputFields = (fields) => {
-    setFormData(prev => {
+    setFormData((prev) => {
       return { ...prev, ...fields }
     })
   }
-  
-
-const [currentStep, setCurrentStep] = useState(0)
-  const isFirstStep = currentStep === 0
 
   const steps = [
-    <FormStep1 {...formData} updateInputFields={updateInputFields} errors={errors}  />,
+    <FormStep1 {...formData} updateInputFields={updateInputFields} errors={errors} />,
     <FormStep2 {...formData} updateInputFields={updateInputFields} errors={errors} />,
     <FormStep3 {...formData} updateInputFields={updateInputFields} errors={errors} />,
-    <FormStep4 {...formData} />]
-  
-    const next = () => {
-    setCurrentStep(i => {
+    <FormStep4 {...formData} />,
+  ]
+  const isFirstStep = currentStep === 0
+  let isLastStep = currentStep === steps.length - 1
+
+  const next = () => {
+    setCurrentStep((i) => {
       return steps.length - 1 <= i ? i : i + 1
     })
   }
-
   const back = () => {
-    setCurrentStep(i => {
+    setCurrentStep((i) => {
       return i <= 0 ? i : i - 1
     })
   }
 
-// setValidators(validators)
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // let errors = {};
-  
-  next()
-  
-    // setErrors(errors);
-    // Object.keys(errors).length === 0 && next();
-  };
+    e.preventDefault()
+    const validators = getValidators(currentStep)
+    let validationErrors = {}
 
-  let isLastStep = currentStep === steps.length - 1;
-  console.log("props", steps[currentStep])
+    Object.entries(validators).forEach(([fieldName, validator]) => {
+      const fieldErrors = validator(formData[fieldName])
+      if (fieldErrors) {
+        validationErrors = { ...validationErrors, ...fieldErrors }
+      }
+    })
+
+    setErrors(validationErrors)
+    Object.keys(validationErrors).length === 0 && next()
+  }
+
   return (
     <section className="flex flex-col relative  border border-black rounded-xl items-center px-5 py-3 my-10 width-form">
-      <span className="flex self-end"> Step {currentStep + 1} / {steps.length}</span>
+      <span className="flex self-end">
+        {" "}
+        Step {currentStep + 1} / {steps.length}
+      </span>
       <form className="flex flex-col py-10" onSubmit={(e) => handleSubmit(e)}>
         {steps[currentStep]}
       </form>
       <div className="button-wrapper">
-        {!isFirstStep && <button id="back" type="button" className="button-style" onClick={() => back()}>Back</button>}
-        {!isLastStep && <button className="button-style" id="submit" type="submit" onClick={handleSubmit}>Next</button>}
+        {!isFirstStep && (
+          <button id="back" type="button" className="button-style" onClick={() => back()}>
+            Back
+          </button>
+        )}
+        {!isLastStep && (
+          <button className="button-style" id="submit" type="submit" onClick={handleSubmit}>
+            Next
+          </button>
+        )}
       </div>
     </section>
   )
 }
 
-export default FormComponent;
+const getValidators = (currentStep) => {
+  switch (currentStep) {
+    case 0:
+      return {
+        firstName: firstNameValidator,
+        lastName: lastNameValidator,
+        age: ageValidator,
+      }
+    case 1:
+      return {
+        phone: phoneValidator,
+        email: emailValidator,
+      }
+    case 2:
+      return {
+        seat: seatValidator,
+        allergies: allergiesValidator,
+        food: foodValidator,
+      }
+    default:
+      return {}
+  }
+}
+
+export default FormComponent
