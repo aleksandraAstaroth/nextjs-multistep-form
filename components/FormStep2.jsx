@@ -1,5 +1,3 @@
-import { useState } from "react"
-// import { phoneValidator, emailValidator } from "../utils/form-validators"
 import InputField from "./InputField"
 
 const FormStep2 = ({ phone, email, updateInputFields, errors }) => {
