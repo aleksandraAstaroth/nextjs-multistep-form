@@ -1,6 +1,6 @@
 import InputField from "./InputField"
 
-const FormStep3 = ({ seat, food, allergies, updateInputFields, errors }) => {
+const FormStep3 = ({ seat, food, allergies, onInputFieldUpdate, errors }) => {
   return (
     <div className="form-style">
       <InputField
@@ -8,7 +8,7 @@ const FormStep3 = ({ seat, food, allergies, updateInputFields, errors }) => {
         id={"seat"}
         errors={errors?.seatError}
         type={"text"}
-        updateInputFields={updateInputFields}
+        onInputFieldUpdate={onInputFieldUpdate}
         value={seat}
       />
       <InputField
@@ -16,7 +16,7 @@ const FormStep3 = ({ seat, food, allergies, updateInputFields, errors }) => {
         id={"food"}
         errors={errors?.foodError}
         type={"text"}
-        updateInputFields={updateInputFields}
+        onInputFieldUpdate={onInputFieldUpdate}
         value={food}
       />
       <InputField
@@ -24,7 +24,7 @@ const FormStep3 = ({ seat, food, allergies, updateInputFields, errors }) => {
         id={"allergies"}
         errors={errors?.allergiesError}
         type={"text"}
-        updateInputFields={updateInputFields}
+        onInputFieldUpdate={onInputFieldUpdate}
         value={allergies}
       />
     </div>

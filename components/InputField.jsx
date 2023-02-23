@@ -1,4 +1,4 @@
-const InputField = ({ label, id, errors, type, updateInputFields, value }) => {
+const InputField = ({ label, id, errors, type, onInputFieldUpdate, value }) => {
   return (
     <>
       <span className="input-wrapper">
@@ -10,7 +10,7 @@ const InputField = ({ label, id, errors, type, updateInputFields, value }) => {
           type={type}
           className={`input-field ${errors ? "border-red-600" : "border-gray-300"}`}
           value={value}
-          onChange={(e) => updateInputFields({ [id]: e.target.value })}
+          onChange={(e) => onInputFieldUpdate({ [id]: e.target.value })}
         />
       </span>
       {errors && <p className="error-field">{errors}</p>}

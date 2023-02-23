@@ -1,6 +1,6 @@
 import InputField from "./InputField"
 
-const FormStep1 = ({ firstName, lastName, age, updateInputFields, errors }) => {
+const FormStep1 = ({ firstName, lastName, age, onInputFieldUpdate, errors }) => {
   return (
     <div className="form-style">
       <InputField
@@ -8,7 +8,7 @@ const FormStep1 = ({ firstName, lastName, age, updateInputFields, errors }) => {
         id={"firstName"}
         errors={errors?.firstNameError}
         type={"text"}
-        updateInputFields={updateInputFields}
+        onInputFieldUpdate={onInputFieldUpdate}
         value={firstName}
       />
 
@@ -17,7 +17,7 @@ const FormStep1 = ({ firstName, lastName, age, updateInputFields, errors }) => {
         id={"lastName"}
         errors={errors?.lastNameError}
         type={"text"}
-        updateInputFields={updateInputFields}
+        onInputFieldUpdate={onInputFieldUpdate}
         value={lastName}
       />
 
@@ -26,7 +26,7 @@ const FormStep1 = ({ firstName, lastName, age, updateInputFields, errors }) => {
         id={"age"}
         errors={errors?.ageError}
         type={"text"}
-        updateInputFields={updateInputFields}
+        onInputFieldUpdate={onInputFieldUpdate}
         value={age}
       />
     </div>

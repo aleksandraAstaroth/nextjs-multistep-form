@@ -30,16 +30,16 @@ const FormComponent = () => {
   const [errors, setErrors] = useState({})
   const [currentStep, setCurrentStep] = useState(0)
 
-  const updateInputFields = (fields) => {
+  const onInputFieldUpdate = (fields) => {
     setFormData((prev) => {
       return { ...prev, ...fields }
     })
   }
 
   const steps = [
-    <FormStep1 {...formData} updateInputFields={updateInputFields} errors={errors} />,
-    <FormStep2 {...formData} updateInputFields={updateInputFields} errors={errors} />,
-    <FormStep3 {...formData} updateInputFields={updateInputFields} errors={errors} />,
+    <FormStep1 {...formData} onInputFieldUpdate={onInputFieldUpdate} errors={errors} />,
+    <FormStep2 {...formData} onInputFieldUpdate={onInputFieldUpdate} errors={errors} />,
+    <FormStep3 {...formData} onInputFieldUpdate={onInputFieldUpdate} errors={errors} />,
     <FormStep4 {...formData} />,
   ]
   const isFirstStep = currentStep === 0
@@ -78,7 +78,7 @@ const FormComponent = () => {
         {" "}
         Step {currentStep + 1} / {steps.length}
       </span>
-      <form className="flex flex-col py-10" onSubmit={(e) => handleSubmit(e)}>
+      <form className="flex flex-col pt-10 pb-6" onSubmit={(e) => handleSubmit(e)}>
         {steps[currentStep]}
       </form>
       <div className="button-wrapper">

@@ -18,7 +18,7 @@
   @apply  text-red-600 text-xs;
 }
 .button-wrapper {
-  @apply flex w-full self-center justify-around pt-5;
+  @apply flex w-full self-center justify-around py-5;
 }
 .button-style {
   @apply border border-black px-3 py-1 text-sm;
