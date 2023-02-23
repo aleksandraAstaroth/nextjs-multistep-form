@@ -13,7 +13,7 @@ const FormStep2 = ({ phone, email, updateInputFields, isFirstStep, isLastStep, b
 
 
     return (
-        <form className="form-style">
+        <div className="form-style">
             <InputField label={"Phone"}
                 id={"phone"}
                 errors={errors?.phoneError}
@@ -26,12 +26,7 @@ const FormStep2 = ({ phone, email, updateInputFields, isFirstStep, isLastStep, b
                 type={"email"}
                 updateInputFields={updateInputFields}
                 value={email} />
-
-            <div className="button-wrapper">
-                {!isFirstStep && <button id="back" type="button" className="button-style" onClick={() => back()}>Back</button>}
-                {<button className="button-style" id="submit" type="submit" onClick={onSubmit}>{isLastStep ? "Submit" : "Next"}</button>}
-            </div>
-        </form>
+        </div>
     )
 }
 export default FormStep2

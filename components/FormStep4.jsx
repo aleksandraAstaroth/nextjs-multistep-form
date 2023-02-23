@@ -12,9 +12,6 @@ const FormStep4 = ({ firstName, lastName, age, phone, email, seat, food, allergi
                 </li>
                 ))}
             </ul>
-            <div className="button-wrapper">
-                {!isFirstStep && <button id="back" type="button" className="button-style" onClick={() => back()}>Back</button>}
-            </div>
         </>
     )
 }

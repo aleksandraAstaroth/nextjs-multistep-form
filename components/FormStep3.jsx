@@ -31,11 +31,6 @@ const FormStep3 = ({ seat, food, allergies, updateInputFields, isFirstStep, isLa
                 type={"text"}
                 updateInputFields={updateInputFields}
                 value={allergies} />
-
-            <div className="button-wrapper">
-                {!isFirstStep && <button id="back" type="button" className="button-style" onClick={() => back()}>Back</button>}
-                {<button id="submit" className="button-style" type="submit" onClick={onSubmit}>{isLastStep ? "Submit" : "Next"}</button>}
-            </div>
         </form >
     )
 }

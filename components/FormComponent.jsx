@@ -17,37 +17,58 @@ const INITIAL_DATA = {
 
 const FormComponent = () => {
   const [formData, setFormData] = useState(INITIAL_DATA)
+ const [errors, setErrors] = useState({})
+
   const updateInputFields = (fields) => {
     setFormData(prev => {
       return { ...prev, ...fields }
     })
   }
+  
 
-  const [currentStep, setCurrentStep] = useState(0)
+const [currentStep, setCurrentStep] = useState(0)
   const isFirstStep = currentStep === 0
 
-  const next = () => {
+  const steps = [
+    <FormStep1 {...formData} updateInputFields={updateInputFields} errors={errors}  />,
+    <FormStep2 {...formData} updateInputFields={updateInputFields} errors={errors} />,
+    <FormStep3 {...formData} updateInputFields={updateInputFields} errors={errors} />,
+    <FormStep4 {...formData} />]
+  
+    const next = () => {
     setCurrentStep(i => {
       return steps.length - 1 <= i ? i : i + 1
     })
   }
+
   const back = () => {
     setCurrentStep(i => {
       return i <= 0 ? i : i - 1
     })
   }
-  let isLastStep;
-  const steps = [
-    <FormStep1 {...formData} updateInputFields={updateInputFields} isFirstStep={isFirstStep} next={next} back={back} isLastStep={isLastStep} />,
-    <FormStep2 {...formData} updateInputFields={updateInputFields} isFirstStep={isFirstStep} next={next} back={back} isLastStep={isLastStep} />,
-    <FormStep3 {...formData} updateInputFields={updateInputFields} isFirstStep={isFirstStep} next={next} back={back} isLastStep={isLastStep} />,
-    <FormStep4 {...formData} isFirstStep={isFirstStep} next={next} back={back} isLastStep={isLastStep} />]
 
+// setValidators(validators)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // let errors = {};
+  
+  next()
+  
+    // setErrors(errors);
+    // Object.keys(errors).length === 0 && next();
+  };
+
+  let isLastStep = currentStep === steps.length - 1;
+  console.log("props", steps[currentStep])
   return (
     <section className="flex flex-col relative  border border-black rounded-xl items-center px-5 py-3 my-10 width-form">
       <span className="flex self-end"> Step {currentStep + 1} / {steps.length}</span>
-      <div className="flex flex-col py-10">
+      <form className="flex flex-col py-10" onSubmit={(e) => handleSubmit(e)}>
         {steps[currentStep]}
+      </form>
+      <div className="button-wrapper">
+        {!isFirstStep && <button id="back" type="button" className="button-style" onClick={() => back()}>Back</button>}
+        {!isLastStep && <button className="button-style" id="submit" type="submit" onClick={handleSubmit}>Next</button>}
       </div>
     </section>
   )

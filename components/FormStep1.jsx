@@ -1,25 +1,17 @@
 
-import { useState } from "react";
 import { firstNameValidator, ageValidator, lastNameValidator } from "../utils/form-validators"
 import InputField from "./InputField";
 
-const FormStep1 = ({ firstName, lastName, age, updateInputFields, isFirstStep, back, next, isLastStep }) => {
-    let [errors, setErrors] = useState({})
-
-    const onSubmit = (e) => {
-        e.preventDefault()
-        let validators = {
-            ...firstNameValidator(firstName),
-            ...ageValidator(age),
-            ...lastNameValidator(lastName)
-        }
-
-        setErrors(validators)
-        Object.keys(validators).length === 0 && next()
+const FormStep1 = ({ firstName, lastName, age, updateInputFields, errors }) => {
+     let validators = {
+        ...firstNameValidator(firstName),
+        ...ageValidator(age),
+        ...lastNameValidator(lastName)
     }
 
+
     return (
-        <form className="form-style">
+        <div className="form-style">
             <InputField label={"First Name"}
                 id={"firstName"}
                 errors={errors?.firstNameError}
@@ -40,12 +32,7 @@ const FormStep1 = ({ firstName, lastName, age, updateInputFields, isFirstStep, b
                 type={"text"}
                 updateInputFields={updateInputFields}
                 value={age} />
-
-            <div className="button-wrapper">
-                {!isFirstStep && <button id="back" type="button" className="button-style" onClick={() => back()}>Back</button>}
-                {<button className="button-style" id="submit" type="submit" onClick={onSubmit}>{isLastStep ? "Submit" : "Next"}</button>}
-            </div>
-        </form >
+        </div>
     )
 }
 export default FormStep1
